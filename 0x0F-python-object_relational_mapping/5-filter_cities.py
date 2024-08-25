@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This script takes in the name of a state
+This script  takes in the name of a state
 as an argument and lists all cities of that
 state, using the database `hbtn_0e_4_usa`.
 """
@@ -9,9 +9,10 @@ import MySQLdb
 from sys import argv
 
 if __name__ == '__main__':
-    if len(argv) != 5:
-        print("Usage: ./5-filter_cities.py <mysql username> <mysql password> <database name> <state name>")
-        exit(1)
+    """
+    Access to the database and get the cities
+    from the database.
+    """
 
     db = MySQLdb.connect(host="localhost", user=argv[1], port=3306,
                          passwd=argv[2], db=argv[3])
@@ -19,7 +20,7 @@ if __name__ == '__main__':
     with db.cursor() as cur:
         cur.execute("""
             SELECT
-                cities.name
+                cities.id, cities.name
             FROM
                 cities
             JOIN
@@ -36,7 +37,5 @@ if __name__ == '__main__':
 
         rows = cur.fetchall()
 
-    if rows:
-        print(", ".join([row[0] for row in rows]))
-    else:
-        print()
+    if rows is not None:
+        print(", ".join([row[1] for row in rows]))
