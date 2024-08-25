@@ -16,12 +16,10 @@ if __name__ == '__main__':
         exit(1)
 
     try:
-        # Connect to the MySQL database
         db = MySQLdb.connect(host="localhost", user=argv[1], port=3306,
                              passwd=argv[2], db=argv[3])
 
         with db.cursor() as cur:
-            # Execute the SQL query with safe parameter substitution
             cur.execute("""
                 SELECT
                     *
@@ -37,7 +35,6 @@ if __name__ == '__main__':
 
             rows = cur.fetchall()
 
-        # Print the results
         if rows:
             for row in rows:
                 print(row)
@@ -45,6 +42,5 @@ if __name__ == '__main__':
     except MySQLdb.Error as err:
         print(f"Error: {err}")
     finally:
-        # Close the database connection
         if db:
             db.close()
