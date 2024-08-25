@@ -11,9 +11,4 @@ from requests.auth import HTTPBasicAuth
 if __name__ == "__main__":
     auth = HTTPBasicAuth(sys.argv[1], sys.argv[2])
     r = requests.get("https://api.github.com/user", auth=auth)
-    
-    # Check if the request was successful (status code 200)
-    if r.status_code == 200:
-        print(r.json().get("id"))
-    else:
-        print("None")
+    print(r.json().get("id"))
